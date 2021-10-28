@@ -1,7 +1,7 @@
-function [Data,t,fs] = RigolMSO1000Z_Read(serialNum,Channels,frames)
-% Read from Rigol Oscilloscope MSO 1000 Z.
+function [Data,t,fs] = RigolMSO1000Z_Read_RunStop(serialNum,Channels,frames)
+% Read from Rigol Oscilloscope MSO 1000 Z with run/stop capture.
 %
-% Example: RigolMSO1000Z_Read('DS1ZD181600446',[3,4],2);
+% Example: RigolMSO1000Z_Read_RunStop('DS1ZD181600446',[3,4],4);
 %
 % Input:
 %   serialNum:  Serial number (char or string), e.g. 'DS1ZD181600446'
@@ -9,11 +9,11 @@ function [Data,t,fs] = RigolMSO1000Z_Read(serialNum,Channels,frames)
 %   frames:     Number of frames to be read from internal memory.
 %
 % Output
-%   Data:   Array with as many columns as channels received.
-%   t:      Time array (seconds).
-%   fs:     Sample rate (Sa/s or Hz).
+%   Data:   Array with as many columns as channels received and 249988 samples.
+%   t:      Time array
+%   fs:     Sample rate
 %
-% Jose Manuel Requena Plens (2021) [joreple@upv.es]
+% Jose Manuel Requena Plens (2021)
 
 % Check inputs
 arguments
@@ -31,6 +31,15 @@ MSO         = visadev(deviceNr);                        % Create VISA Object
 %% Signal data format
 writeline(MSO, ':WAVeform:MODE RAW' );
 writeline(MSO, ':WAVeform:FORMat BYTE')
+
+% Flush data
+flush(MSO); pause(0.1) % Wait 100ms
+
+%% Measure
+writeline(MSO, ':RUN');
+HScale = str2double(writeread(MSO, ':TIMebase:MAIN:SCALe?'));
+pause(HScale*12*4*2+0.1) % Wait for load signal in oscilloscope
+writeline(MSO, ':STOP');
 
 % Flush data
 flush(MSO); pause(0.1) % Wait 100ms

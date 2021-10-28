@@ -1,6 +1,18 @@
 function RedPitaya_Pulses(IP,port,outCH,type,f,pulses,amp)
 % RED PITAYA STEMlab 125-14 v1.1
 % Comands: https://redpitaya.readthedocs.io/en/latest/appsFeatures/remoteControl/remoteControl.html#list-of-supported-scpi-commands
+%
+% Example: RedPitaya_Pulses('192.168.1.200',5000,1,'sine',40e3,100,0.5)
+%
+% Input:
+%   IP:      IP address
+%   Port:    Connection port
+%   outCH:   Out channel. 1 or 2
+%   type:    Signal type (sine, square, triangle, sawu, sawd, pwm)
+%   f:       Signal frequency (Hz)
+%   pulses:  Number of pulses. Default: 50
+%   amp:     Signal amplitude (V). Default: 1
+%
 % Jose Manuel Requena Plens (2021) [joreple@upv.es]
 
 % Check inputs
@@ -9,9 +21,9 @@ arguments
     port    (1,1) double
     outCH   (1,1) {mustBeInteger,mustBePositive,mustBeMember(outCH,[1,2])}
     type    (1,1) string {mustBeMember(type,{'sine','square','triangle','sawu','sawd','pwm'})}
-    f       (1,1) mustBePositive
-    pulses  (1,1) {mustBeInteger,mustBePositive}
-    amp     (1,1) {mustBeInRange(amp,-1,1)}
+    f       (1,1) {mustBePositive}
+    pulses  (1,1) {mustBeInteger,mustBePositive} = 50
+    amp     (1,1) {mustBeInRange(amp,-1,1)} = 1
 end
 
 %% CHANNELS

@@ -1,18 +1,39 @@
-function [signal_num,t,Fs] = RedPitaya_Pulses_SRCandREC(IP,port,outCH,inCH,type,f,pulses,amp)
+function [Data,t,fs] = RedPitaya_Pulses_SRCandREC(IP,port,outCH,inCH,type,f,pulses,amp,decimation)
 % RED PITAYA STEMlab 125-14 v1.1
 % Comands: https://redpitaya.readthedocs.io/en/latest/appsFeatures/remoteControl/remoteControl.html#list-of-supported-scpi-commands
+%
+% Example: RedPitaya_Pulses_SRCandREC('192.168.1.200',5000,1,1,'sine',40e3,100,0.5,64)
+%
+% Input:
+%   IP:         IP address
+%   Port:       Connection port
+%   outCH:      Output channel. 1 or 2
+%   inCH:       Input channel. 1 or 2
+%   type:       Signal type (sine, square, triangle, sawu, sawd, pwm)
+%   f:          Signal frequency (Hz)
+%   pulses:     Number of pulses. Default: 50
+%   amp:        Signal amplitude (V). Default: 1
+%   decimation: Decimation value. Sample Rate = 125/decimation. Default: 64
+%               Available: 1, 8, 64, 1024, 8192, 65536
+%
+% Output
+%   Data:   Array with as many columns as channels received and 249988 samples.
+%   t:      Time array
+%   fs:     Sample rate
+%
 % Jose Manuel Requena Plens (2021) [joreple@upv.es]
 
 % Check inputs
 arguments
-    IP      (1,1) string 
-    port    (1,1) double
-    outCH   (1,1) {mustBeInteger,mustBePositive,mustBeMember(outCH,[1,2])}
-    inCH    (1,1) {mustBeInteger,mustBePositive,mustBeMember(inCH,[1,2])}
-    type    (1,1) string {mustBeMember(type,{'sine','square','triangle','sawu','sawd','pwm'})}
-    f       (1,1) mustBePositive
-    pulses  (1,1) {mustBeInteger,mustBePositive}
-    amp     (1,1) {mustBeInRange(amp,-1,1)}
+    IP          (1,1) string 
+    port        (1,1) double
+    outCH       (1,1) {mustBeInteger,mustBePositive,mustBeMember(outCH,[1,2])}
+    inCH        (1,1) {mustBeInteger,mustBePositive,mustBeMember(inCH,[1,2])}
+    type        (1,1) string {mustBeMember(type,{'sine','square','triangle','sawu','sawd','pwm'})}
+    f           (1,1) {mustBePositive}
+    pulses      (1,1) {mustBeInteger,mustBePositive} = 50
+    amp         (1,1) {mustBeInRange(amp,-1,1)} = 1
+    decimation  (1,1) {mustBeInteger,mustBePositive,mustBeMember(decimation,[1,8,64,1024,8192,65536])} = 64
 end
 
 %% CHANNELS
@@ -89,7 +110,10 @@ writeline(tcpIP,on_order);     % Power on output channel
 
 %% ACQUISITION
 
-writeline(tcpIP,'ACQ:DEC 64');              % Decimation of signal received = 64 -> Fs = 1.953MS/s
+% Decimation order string 'ACQ:DEC x'
+dec_order    = sprintf('ACQ:DEC %d',decimation);
+
+writeline(tcpIP,dec_order);                 % Decimation of signal received -> Fs = 125/decimation
 writeline(tcpIP,'ACQ:TRIG:LEV 0');          % Trigger level to 0. Trigger by software
 writeline(tcpIP,'ACQ:TRIG:DLY 8192');       % Trigger delay to 0. +-8192 is available
 writeline(tcpIP,'ACQ:AVG ON');              % Enable averaging
@@ -118,11 +142,11 @@ writeline(tcpIP,'ACQ:STOP');                % Stop acquisition
 
 %% PROCESS DATA
 signal_str = erase(signal_str,["{","}"]);           % Clean
-signal_num = str2double(split(signal_str',','));    % To num
+Data = str2double(split(signal_str',','));    % To num
 
 % Sample rate and time array
-Fs = 1.953e6;
-t  = (0:1:length(signal_num)-1)/Fs;
+fs = 125/str2double(writeread(tcpIP,'ACQ:DEC?'));
+t  = (0:1:length(Data)-1)/fs;
 
 %% Close connection with Red Pitaya
 clear('tcpIP')
