@@ -41,6 +41,8 @@ function [x,t] = SweptSine(f1,f2,fs,T,phase0,fadeInT,fadeOutT)
 % Output:
 %   x   Signal array
 %   t   Time array (s)
+%
+% Jose Manuel Requena Plens (2021) [joreple@upv.es]
 
 % Check inputs
 arguments
