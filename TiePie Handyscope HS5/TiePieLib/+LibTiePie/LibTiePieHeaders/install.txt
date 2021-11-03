@@ -1,0 +1,9 @@
+== REQUIREMENTS ==
+
+Before you can use LibTiePie you have to install the device driver for your
+instrument(s), see: http://www.tiepie.com/download/
+
+
+== INSTALLATION ==
+
+You must copy the library to you application/script's directory.

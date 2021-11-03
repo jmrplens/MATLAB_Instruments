@@ -1,0 +1,405 @@
+Version 0.6
+- Added:
+  - LstSetCallbackDeviceCanOpenChanged
+  - LstSetEventDeviceCanOpenChanged
+  - LstSetMessageDeviceCanOpenChanged
+  - ObjGetInterfaces
+  - ObjGetEvent
+  - ObjSetEventCallback
+  - ObjSetEventEvent
+  - ObjSetEventWindowHandle
+  - DevTrOutTrigger
+  - ScpChGetBandwidths
+  - ScpChGetBandwidth
+  - ScpChSetBandwidth
+  - ScpChHasSafeGround
+  - ScpChGetSafeGroundEnabled
+  - ScpChSetSafeGroundEnabled
+  - ScpChGetSafeGroundThresholdMin
+  - ScpChGetSafeGroundThresholdMax
+  - ScpChGetSafeGroundThreshold
+  - ScpChSetSafeGroundThreshold
+  - ScpChVerifySafeGroundThreshold
+  - ScpChTrGetLevelModes
+  - ScpChTrGetLevelMode
+  - ScpChTrSetLevelMode
+  - ScpStartGetDataAsync
+  - ScpStartGetDataAsyncRaw
+  - ScpCancelGetDataAsync
+  - ScpGetClockSourceFrequencies
+  - ScpGetClockSourceFrequenciesEx
+  - ScpGetClockSourceFrequency
+  - ScpSetClockSourceFrequency
+  - ScpGetClockOutputFrequencies
+  - ScpGetClockOutputFrequenciesEx
+  - ScpGetClockOutputFrequency
+  - ScpSetClockOutputFrequency
+  - GenHasOutputInvert
+  - GenHasAmplitude
+  - GenHasAmplitudeEx
+  - GenHasFrequency
+  - GenHasFrequencyEx
+  - GenHasOffset
+  - GenHasOffsetEx
+  - GenHasPhase
+  - GenHasPhaseEx
+  - GenHasSymmetry
+  - GenHasSymmetryEx
+  - GenHasEdgeTime
+  - GenHasEdgeTimeEx
+  - GenHasWidth
+  - GenHasWidthEx
+  - GenHasData
+  - GenHasDataEx
+  - GenIsRunning
+  - GenGetLeadingEdgeTimeMin
+  - GenGetLeadingEdgeTimeMax
+  - GenGetLeadingEdgeTimeMinMaxEx
+  - GenGetLeadingEdgeTime
+  - GenSetLeadingEdgeTime
+  - GenVerifyLeadingEdgeTime
+  - GenVerifyLeadingEdgeTimeEx
+  - GenGetTrailingEdgeTimeMin
+  - GenGetTrailingEdgeTimeMax
+  - GenGetTrailingEdgeTimeMinMaxEx
+  - GenGetTrailingEdgeTime
+  - GenSetTrailingEdgeTime
+  - GenVerifyTrailingEdgeTime
+  - GenVerifyTrailingEdgeTimeEx
+  - I2CGetInternalAddresses
+  - I2CWriteRead
+  - LIBTIEPIESTATUS_MEASUREMENT_RUNNING
+- Renamed:
+  - DevClose to ObjClose
+  - DevIsRemoved to ObjIsRemoved
+- Deprecated:
+  - DevSetCallbackRemoved
+  - DevSetEventRemoved
+  - DevSetMessageRemoved
+  - ScpSetCallbackDataReady
+  - ScpSetCallbackDataOverflow
+  - ScpSetCallbackConnectionTestCompleted
+  - ScpSetCallbackTriggered
+  - ScpSetEventDataReady
+  - ScpSetEventDataOverflow
+  - ScpSetEventConnectionTestCompleted
+  - ScpSetEventTriggered
+  - ScpSetMessageDataReady
+  - ScpSetMessageDataOverflow
+  - ScpSetMessageConnectionTestCompleted
+  - ScpSetMessageTriggered
+  - GenSetCallbackBurstCompleted
+  - GenSetCallbackControllableChanged
+  - GenSetEventBurstCompleted
+  - GenSetEventControllableChanged
+  - GenSetMessageBurstCompleted
+  - GenSetMessageControllableChanged
+
+Version 0.5 (2015-04-27)
+- Added:
+  - LibInit
+  - LibIsInitialized
+  - LibExit
+  - LibGetVersionExtra
+  - GenGetBurstStatus
+  - ScpSetCallbackTriggered
+  - ScpSetEventTriggered
+  - ScpSetMessageTriggered
+  - ScpHasTrigger
+  - ScpHasTriggerEx
+  - ScpHasTriggerDelay
+  - ScpHasTriggerDelayEx
+  - ScpHasTriggerHoldOff
+  - ScpHasTriggerHoldOffEx
+  - ScpIsTimeOutTriggered
+  - ScpIsForceTriggered
+  - ScpChHasTriggerEx
+  - ScpChTrIsTriggered
+  - ScpTrInIsTriggered
+  - GenGetOutputInvert
+  - GenSetOutputInvert
+  - GenGetModesEx
+  - GenGetModesNative
+  - GenGetBurstSampleCountMinMaxEx
+  - GenGetBurstSampleCountMax
+  - GenGetBurstSampleCountMin
+  - GenGetBurstSampleCount
+  - GenSetBurstSampleCount
+  - GenGetBurstSegmentCountMinMaxEx
+  - GenGetBurstSegmentCountMax
+  - GenGetBurstSegmentCountMin
+  - GenGetBurstSegmentCount
+  - GenSetBurstSegmentCount
+  - GenGetDataRawValueRange
+  - GenGetDataRawValueMax
+  - GenGetDataRawValueZero
+  - GenGetDataRawValueMin
+  - GenGetWidthMinMaxEx
+  - GenGetWidthMin
+  - GenGetWidthMax
+  - GenGetWidth
+  - GenSetWidth
+  - GenVerifyBurstSegmentCount
+  - GenVerifyBurstSegmentCountEx
+  - GenVerifyWidth
+  - GenVerifyWidthEx
+- Modified:
+  - ScpStop: returns bool8_t, was void.
+  - ScpForceTrigger: returns bool8_t, was void.
+  - ScpStartConnectionTest: removed qwChannelMask parameter.
+  - ScpVerifyRecordLengthEx: replaced qwActiveChannelMask parameter by pChannelEnabled and wChannelCount parameters.
+  - ScpVerifySampleFrequencyEx: replaced qwActiveChannelMask parameter by pChannelEnabled and wChannelCount parameters.
+  - GenStart: returns bool8_t, was void.
+  - GenStop: returns bool8_t, was void.
+  - GenVerifyFrequencyEx2: added dWidth parameter.
+  - LstUpdate: removed dwDeviceIdMask parameter.
+  - LstSetCallbackDeviceAdded: replaced TpCallback_t parameter by TpCallbackDeviceList.
+  - LstSetCallbackDeviceRemoved: replaced TpCallback_t parameter by TpCallbackDeviceLis.
+  - CO* constants.
+  - TC* constants.
+- Renamed:
+  - LstGetDeviceProductId to LstDevGetProductId
+  - LstGetDeviceVendorId to LstDevGetVendorId
+  - LstGetDeviceName to LstDevGetName
+  - LstGetDeviceNameShort to LstDevGetNameShort
+  - LstGetDeviceSerialNumber to LstDevGetSerialNumber
+  - LstGetDeviceTypes to LstDevGetTypes
+  - LstGetDeviceCanOpen to LstDevCanOpen
+  - GenGetBurstModes to GenGetModes
+  - GenGetBurstMode to GenGetMode
+  - GenSetBurstMode to GenSetMode
+  - BM* constants to GM*
+  - BM_DISABLED to GM_CONTINUOUS
+  - BMB_DISABLED to GMB_CONTINUOUS
+  - BM_COUNT to GM_BURST_COUNT
+  - BMB_COUNT to GMB_BURST_COUNT
+  - IDKIND_DEVICEID to IDKIND_PRODUCTID
+  - LIBTIEPIESTATUS_INVALID_DEVICE_ID to LIBTIEPIESTATUS_INVALID_PRODUCT_ID
+- Removed:
+  - ScpVerifySegmentCountEx
+  - ScpGetSharedChannelGroupCount
+  - ScpGetSharedChannelGroup
+  - ScpGetTriggerSources
+  - ScpGetTriggerSourcesEx
+  - ScpGetTriggerSourceOR
+  - ScpSetTriggerSourceOR
+  - ScpGetTriggerSourceAND
+  - ScpSetTriggerSourceAND
+  - ScpGetTriggerKinds
+  - ScpGetTriggerKindsEx
+  - ScpGetTriggerKind
+  - ScpSetTriggerKind
+  - ScpGetTriggerLevel
+  - ScpSetTriggerLevel
+  - ScpGetTriggerHysteresis
+  - ScpSetTriggerHysteresis
+  - ScpChGetTriggerKinds
+  - ScpChGetTriggerKindsEx
+  - ScpChGetTriggerKind
+  - ScpChSetTriggerKind
+  - ScpChGetTriggerLevel
+  - ScpChSetTriggerLevel
+  - ScpChGetTriggerHysteresis
+  - ScpChSetTriggerHysteresis
+  - ScpChGetTriggerPulseTime
+  - ScpChSetTriggerPulseTime
+  - ScpChTrVerifyTimeEx
+  - GenGetModes (note: reused for generator mode)
+  - GenGetModesEx (note: reused for generator mode)
+  - GenGetMode (note: reused for generator mode)
+  - GenSetMode (note: reused for generator mode)
+  - GenVerifyFrequencyEx
+  - GenGetAutoRanging
+  - GenSetAutoRanging
+  - GenGetRanges
+  - GenGetRange
+  - GenSetRange
+  - GenGetTriggerSources
+  - GenGetTriggerSourceAND
+  - GenSetTriggerSourceAND
+  - GenGetTriggerSourceOR
+  - GenSetTriggerSourceOR
+  - Deprecated TK* constants.
+  - TS* constants.
+  - ID* constants.
+
+Version 0.4.5 (2014-10-16)
+- Added:
+  - LstDevGetIPv4Address
+  - LstDevGetIPPort
+  - LstDevGetRecommendedFirmwareVersion
+  - GenGetOutputValueMin
+  - GenGetOutputValueMax
+  - GenGetOutputValueMinMax
+  - ScpChGetImpedance
+  - ScpChTrGetConditionsEx
+  - ScpChTrVerifyTimeEx2
+  - ScpGetSegmentCountMaxEx
+  - ScpStartConnectionTestEx
+  - ScpVerifySampleFrequenciesEx
+  - ScpVerifySegmentCountEx2
+- Deprecated (will be removed in 1.0):
+  - ScpVerifySegmentCountEx
+
+Version 0.4.4 (2014-03-17)
+- Added:
+  - LstCreateCombinedDevice
+  - LstCreateAndOpenCombinedDevice
+  - LstDevGetNameShortest
+  - LstCbDevGetNameShortest
+  - DevGetNameShortest
+  - DevTrGetInputIndexById
+  - DevTrGetOutputIndexById
+  - DevTrInGetId
+  - DevTrInIsAvailable
+  - DevTrOutGetId
+  - ScpTrInIsAvailableEx
+  - ScpTrInGetKindsEx
+  - ScpChIsAvailable
+  - ScpChIsAvailableEx
+  - ScpChGetProbeOffset
+  - ScpChSetProbeOffset
+  - ScpChTrIsAvailable
+  - ScpChTrIsAvailableEx
+  - CONNECTORTYPE_COUNT
+  - DATARAWTYPE_COUNT
+  - LIBTIEPIESTATUS_NOT_AVAILABLE
+  - LIBTIEPIE_TRIGGERINPUT_INDEX_INVALID
+
+Version 0.4.3 (2013-09-19)
+- Added:
+  - GenGetAmplitudeMinMaxEx
+  - GenGetDataLengthMinMaxEx
+  - GenGetFrequencyMinMaxEx
+  - GenGetOffsetMinMaxEx
+  - GenGetPhaseMin
+  - GenGetPhaseMax
+  - GenGetPhaseMinMaxEx
+  - GenGetSymmetryMin
+  - GenGetSymmetryMax
+  - GenGetSymmetryMinMaxEx
+  - GenSetDataEx
+  - GenSetDataRawEx
+  - GenVerifyAmplitudeEx
+  - GenVerifyDataLengthEx
+  - GenVerifyFrequencyEx2
+  - GenVerifyOffsetEx
+  - GenVerifyPhaseEx
+  - GenVerifySymmetryEx
+  - LstDevGetRecommendedDriverVersion
+  - ScpGetAutoResolutionModes
+  - ScpGetAutoResolutionMode
+  - ScpSetAutoResolutionMode
+  - ScpGetSegmentCountMax
+  - ScpGetSegmentCount
+  - ScpSetSegmentCount
+  - ScpVerifySegmentCount
+  - ScpVerifySegmentCountEx
+  - ScpGetTriggerDelay
+  - ScpSetTriggerDelay
+  - ScpVerifyTriggerDelay
+  - ScpVerifyTriggerDelayEx
+  - ScpVerifyTriggerTimeOutEx
+- Renamed (old names will be removed in 1.0):
+  - TK_RISING -> TK_RISINGEDGE
+  - TK_FALLING -> TK_FALLINGEDGE
+  - TK_EDGE -> TK_ANYEDGE
+  - TK_DROPINWINDOW -> TK_ENTERWINDOW
+  - TK_DROPOUTWINDOW -> TK_EXITWINDOW
+
+Version 0.4.2 (2013-03-21)
+- Added:
+  - ScpChHasTrigger
+  - ScpChTrGetEnabled
+  - ScpChTrSetEnabled
+  - ScpChTrVerifyTime
+  - ScpChTrVerifyTimeEx
+  - GenGetDataLengthMin
+- Deprecated (will be removed in 1.0):
+  - ScpGetTriggerSources
+  - ScpGetTriggerSourcesEx
+  - ScpGetTriggerSourceOR
+  - ScpSetTriggerSourceOR
+  - ScpGetTriggerSourceAND
+  - ScpSetTriggerSourceAND
+  - ScpGetTriggerKinds
+  - ScpGetTriggerKindsEx
+  - ScpGetTriggerKind
+  - ScpSetTriggerKind
+  - ScpGetTriggerLevel
+  - ScpSetTriggerLevel
+  - ScpGetTriggerHysteresis
+  - ScpSetTriggerHysteresis
+
+Version 0.4.1 (2013-01-21)
+- Added:
+  - LstDevGetDriverVersion
+  - LstDevGetFirmwareVersion
+  - LstDevGetCalibrationDate
+  - LstDevGetContainedSerialNumbers
+  - LstCbDevGetProductId
+  - LstCbDevGetVendorId
+  - LstCbDevGetName
+  - LstCbDevGetNameShort
+  - LstCbDevGetDriverVersion
+  - LstCbDevGetFirmwareVersion
+  - LstCbDevGetCalibrationDate
+  - LstCbScpGetChannelCount
+  - DevTrGetInputCount
+  - DevTrInGetEnabled
+  - DevTrInSetEnabled
+  - DevTrInGetKinds
+  - DevTrInGetKind
+  - DevTrInSetKind
+  - DevTrInGetName
+  - DevTrGetOutputCount
+  - DevTrOutGetEnabled
+  - DevTrOutSetEnabled
+  - DevTrOutGetEvents
+  - DevTrOutGetEvent
+  - DevTrOutSetEvent
+  - DevTrOutGetName
+  - GenGetBurstModes
+  - GenGetBurstMode
+  - GenSetBurstMode
+  - ScpChTrGetLevelCount
+  - ScpChTrGetHysteresisCount
+  - ScpChTrGetConditions
+  - ScpChTrGetCondition
+  - ScpChTrSetCondition
+  - ScpChTrGetTimeCount
+  - GenGetResolution
+  - HlpPointerArrayNew
+  - HlpPointerArrayDelete
+  - HlpPointerArraySet
+- Renamed (old functions will be removed in 1.0):
+  - ScpChGetTriggerKinds -> ScpChTrGetKinds
+  - ScpChGetTriggerKindsEx -> ScpChTrGetKindsEx
+  - ScpChGetTriggerKind -> ScpChTrGetKind
+  - ScpChSetTriggerKind -> ScpChTrSetKind
+  - ScpChGetTriggerLevel -> ScpChTrGetLevel
+  - ScpChSetTriggerLevel -> ScpChTrSetLevel
+  - ScpChGetTriggerHysteresis -> ScpChTrGetHysteresis
+  - ScpChSetTriggerHysteresis -> ScpChTrSetHysteresis
+  - GenGetModes -> GenGetFrequencyModes
+  - GenGetModesEx -> GenGetFrequencyModesEx
+  - GenGetMode -> GenGetFrequencyMode
+  - GenSetMode -> GenSetFrequencyMode
+  - GenGetAutoRanging -> GenGetAmplitudeAutoRanging
+  - GenSetAutoRanging -> GenSetAmplitudeAutoRanging
+  - GenGetRanges -> GenGetAmplitudeRanges
+  - GenGetRange -> GenGetAmplitudeRange
+  - GenSetRange -> GenSetAmplitudeRange
+- Renamed/modified (old functions will be removed in 1.0):
+  - ScpChGetTriggerPulseTime -> ScpChTrGetTime
+  - ScpChSetTriggerPulseTime -> ScpChTrSetTime
+- Deprecated (will be removed in 1.0):
+  - GenGetTriggerSources
+  - GenGetTriggerSourceAND
+  - GenSetTriggerSourceAND
+  - GenGetTriggerSourceOR
+  - GenSetTriggerSourceOR
+
+Version 0.4.0 (2012-10-04)
+
+Version 0.3.1 (2012-07-05)

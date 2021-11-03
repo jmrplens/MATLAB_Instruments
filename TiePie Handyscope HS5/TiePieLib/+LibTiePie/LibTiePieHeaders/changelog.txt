@@ -1,0 +1,205 @@
+Version 0.6.3 (2017-04-04)
+- Hanyscope HS6 DIFF power management improvements.
+
+Version 0.6.2 (2017-03-29)
+- SafeGround improvements.
+- BugFix: Handyscope HS3 calibration date wasn't reported.
+
+Version 0.6.1 (2017-03-15)
+- BugFix: Hanyscope HS6 DIFF external trigger pullup's weren't enabled.
+
+Version 0.6 (2016-03-10)
+- New device support: Handyscope HS6 DIFF
+- Added support for combining HS5's with HS6D's
+- New device support: Handyscope HS3
+- Added support for combining HS3's with HS4(D)'s
+- Handyscope HS5:
+  - Added edge time control to pulse signal.
+- Added support for new universal USB drivers. (Windows only)
+- Added support for asynchronous oscilloscope data downloading.
+- Added SafeGround support.
+- Added bandwidth limit support.
+- Added new queue based event system.
+- Added trigger conditions inside/outside.
+- Documentation improvements.
+- Minor bug fixes.
+
+Version 0.5.6 (2015-11-10)
+- Improved error reporting in case of firmware errors.
+- BugFix: Some HS4Ds failed on first stream attempt.
+- Linux only:
+  - Fix: Hotplug detection failed on some ARM systems.
+  - Fix: libudev1 is now preferred over libudev0.
+
+Version 0.5.5 (2015-08-28)
+- Fix: Some Handyscope HS4 (DIFF)'s didn't initalize properly.
+
+Version 0.5.4 (2015-07-20)
+- Fix: A firmware upgrade is now done if possible instead of an invalid firmware error.
+- BugFix: Invalid triggered events that could occur.
+- BugFix: Fixed high CPU load on Linux.
+
+Version 0.5.3 (2015-06-29)
+- BugFix: Generator mode could did not work properly for abirtrary and pulse signal types.
+- BugFix: Handyscope HS5 initalization failed on some systems.
+
+Version 0.5.2 (2015-05-08)
+- Linux only:
+  - BugFix: A deadlock could occur when updating the device list.
+  - BugFix: Corrected the installation path of 45-tiepie.rules in deb packages.
+
+Version 0.5.1 (2015-05-04)
+- BugFix: HS5 AWG pulse width could be wrong under some specific setting changes.
+
+Version 0.5 (2015-04-27)
+- New device support: Handyprobe HP3
+- Handyscope HS5:
+  - Added generator burst status.
+  - Added many new generator modes.
+  - Added generator pulse signal type.
+  - Added generator output invert.
+  - Added time condition support to enter/exit window trigger.
+- Added LibInit/LibExit initialization/finalization functions. (Fixes: deadlock that could occur when unloading LibTiePie.)
+- Added triggered event for oscilloscopes.
+- Oscilloscope trigger timeout is no longer disabled when no trigger sources are enabled.
+- Added support for detecting which trigger source caused the trigger.
+- Many API improvements, see changelog.api.txt:
+  - Renamed generator burst mode to mode.
+  - Renamed and changed clock output constants.
+  - Renamed and changed trigger condition constants.
+  - Removed deprecated TK_* constants.
+  - Removed deprecated functions.
+- Many documentation improvements.
+- Minor bug fixes.
+
+Version 0.4.5.8 (2015-03-02)
+- BugFix: The oscilloscope data overflow event didn't work on Linux.
+
+Version 0.4.5.7 (2015-02-12)
+- Raised Handyscope HS4 DIFF minimum driver version to 7.1.11. (Some HS4D's don't work with 7.1.10 driver)
+
+Version 0.4.5.6 (2015-02-10)
+- Improved HS4D/ATS5004D connection test.
+- BugFix: Corrected HS4/HS4D/ATS5004D sample frequency validation.
+
+Version 0.4.5.5 (2015-01-16)
+- BugFix: Library did not work on Windows XP.
+
+Version 0.4.5.4 (2015-01-16)
+- BugFix: Some threads didn't cleanup properly.
+- BugFix: GenSetAmplitudeRange always selected the highest range for any valid value.
+- BugFix: Corrected timing issue for USB3 ports.
+
+Version 0.4.5.3 (2014-12-16)
+- BugFix: ScpGetData* functions could write outside the supplied buffer(s) with a combined Handyscope HS4 (DIFF).
+
+Version 0.4.5.2 (2014-11-26)
+- BugFix: HS4D/ATS5004D resistance measurement could give invalid values if clipping at maximum.
+
+Version 0.4.5.1 (2014-10-28)
+- BugFix: SureConnect did not work on some HS5.
+- BugFix: Connection test did not work properly on some HS4D/ATS5004D.
+
+Version 0.4.5 (2014-10-16)
+- New device support:
+  - Handyscope HS4
+  - Handyscope HS4 DIFF
+  - ATS5004D
+  - Combined Handyscope HS4, Handyscope HS4 DIFF and/or ATS5004D's
+- Handyscope HS5:
+  - All 64 MiS/256 KiS memory can now be used with one channel.
+  - Added support for v1.3 boards.
+- Linux only:
+  - Lowered required glibc version.
+  - Improved firmware loading for ARM architecture.
+- Corrected behaviour of ScpChSetCoupling, it didn't revalidate the range.
+- Many documentation improvements.
+- Fixed USB 1.1 support.
+- Minor bug fixes.
+
+Version 0.4.4 (2014-03-17)
+- ScpChSetRange function now disables auto ranging if enabled!
+- Added support for checking if a trigger input is available.
+- Added trigger input/output id's.
+- Added oscilloscope channel probe offset support.
+- Added device name shortest functions, for getting short device name without model postfix
+- Made C++ header compatible with Visual C++.
+- BugFixes:
+  - Oscilloscope trigger inputs are now aware of current measure mode.
+  - Oscilloscope channel auto ranging is now aware of current measure mode.
+  - Handyscope HS5:
+    - Some record lengths didn't work properly.
+    - Reading only Ch2 data didn't work properly.
+    - Invalid samples could occur when using channel and external triggering.
+
+Version 0.4.3 (2013-09-19)
+- Handyscope HS5:
+  - Added support for trigger delay.
+  - Added auto resolution mode setting.
+  - Added multi segment measurement support.
+  - Added 8 bit support.
+  - Improved connection testing speed.
+  - Added sample frequency setting to noise signal type.
+  - Increased AWG data upload speed.
+  - Increased data download speed when using one channel.
+  - Improved AWG sample/signal frequency accuracy.
+- Improved combined instrument stream synchronisation accuracy.
+- Added status LIBTIEPIESTATUS_INVALID_DRIVER to notify about an incompatible driver. (Windows only)
+- Bug fixes:
+  - Handyscope HS5:
+    - AWG square waveform with 0% or 100% symmetry now works properly.
+    - AWG phase setting now works properly.
+    - AWG arbitrary with 64 MiS now works properly.
+
+Version 0.4.2 (2013-03-21)
+- Added ScpChTrGetEnabled()/ScpChTrSetEnabled() to use a channel as trigger source. (Scp*TriggerSource* functions are now deprecated and will be removed in 0.5.0)
+- Added ScpChHasTrigger() checking if the channel has trigger support.
+- Changed the default trigger hysteresis to 0.05 (5%), was 0.125 (12.5%).
+- Handyscope HS5:
+  - Added support for pulse width shorter than triggering.
+  - Added support for rising edge trigger on EXT 1, 2 and 3.
+  - Added support for SureConnect.
+- Bug fixes:
+  - LibGetLastStatusStr() returned NULL for some statuses.
+  - ScpSetTriggerLevel() didn't work properly for TS_CH*.
+  - ScpSetTriggerHysteresis() didn't work properly for TS_CH*.
+  - ScpGetData1Ch()/ScpGetDataRaw1Ch() didn't work properly.
+  - Handyscope HS5:
+    - Invalid pre samples weren't set to zero when read.
+    - Under some specific conditions the AWG frequency was wrong.
+    - Switch from DC to Arbitrary signal type didn't restore amplitude under some specific conditions.
+    - Oscilloscope generator trigger sources didn't trigger on the right place under some specific conditions.
+
+Version 0.4.1 (2013-01-21)
+- Added GNU/Linux support.
+- Handyscope HS5:
+  - Added support for external/AWG trigger inputs (requires driver version 7.0.2 or newer on Windows).
+  - Added support for trigger outputs.
+  - Added support for gated bursts.
+  - Added pulse width trigger support.
+- Added new trigger input/output interface.
+- Added resolution to generator interface.
+- Added new channel trigger interface.
+- Added ID_COMBI for opening a combined instrument.
+- Added helper functions for making an array of pointers.
+- Renamed some generator interface functions.
+- BugFix: DevIsRemoved's result was inverted.
+- BugFix: BurstCompleted event didn't work when there was no Windows message loop.
+- BugFix: I2CSetSpeed didn't work properly.
+
+Version 0.4.0 (2012-10-04)
+- Added support for Handyscope HS5 combined instruments.
+- Improved LastStatus for I2C functions.
+- Handyscope HS5:
+  - Added generator impedance.
+  - Added connection test.
+  - Added ohm measurements.
+  - BugFix: added correction for unsupported record lengths in stream mode.
+- Changed Lst* API.
+- Added external clock output support.
+
+Version 0.3.1 (2012-07-05)
+- Improved Handyscope HS5 accuracy.
+
+Version 0.3.0 (2012-06-15)
+- Initial release for Handyscope HS5.
