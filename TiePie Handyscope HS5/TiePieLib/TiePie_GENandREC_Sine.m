@@ -1,12 +1,15 @@
-function [signal_rec,t,real_fs] = TiePie_GENandREC_Arbitrary(LIB,signal_gen,fs,chan,amp,pulses,RecLength,VRange,ProbeGain)
-% TiePie Generation and adquisition (triggered) with arbitrary signal.
+function [signal_rec,t,real_fs] = TiePie_GENandREC_Sine(LIB,f,fs,chan,amp,pulses,RecLength,VRange,ProbeGain)
+% TiePie Generation and adquisition (triggered) with sine signal.
 %
-% [signal_rec,t,real_fs] = TiePie_GENandREC_Arbitrary(LIB,signal_gen,fs,chan,amp,pulses,RecLength,VRange,ProbeGain)
+%   [signal_rec,t,real_fs] = TiePie_GENandREC_Sine(LIB,f,fs,chan,amp,pulses,RecLength,VRange,ProbeGain)
 %
+% Example:
+%   40kHz sine signal with 1MHz sample rate and 2 Volts. Read from channel 1:
+%       [signal_rec,t,real_fs] = TiePie_GENandREC_Sine(LIB,40e3,1e6,1,2,50,5000,3,1)
 %
 % Inputs:
 %   LIB         TiePie Library object
-%   signal_gen  Output signal array
+%   f           Frequency of sine signal (Hz)
 %   fs          Output signal sample rate (Hz)
 %   chan        Read channel/s. Available: 1, 2, [1,2], [2,1]
 %   amp         Output amplitude (V). Max 12 V
@@ -27,7 +30,7 @@ function [signal_rec,t,real_fs] = TiePie_GENandREC_Arbitrary(LIB,signal_gen,fs,c
 % Check inputs
 arguments
     LIB             (1,1) LibTiePie.Library
-    signal_gen      (1,:) double
+    f               (1,1) {mustBePositive}
     fs              (1,1) {mustBePositive}
     chan            (1,:) {mustBeInteger,mustBePositive,mustBeMember(chan,[1,2])}
     amp             (1,1) double
@@ -53,11 +56,7 @@ for k = 0 : LIB.DeviceList.Count - 1
         scp = item.openOscilloscope();
         if ismember(MM.BLOCK, scp.MeasureModes)
             gen = item.openGenerator();
-            if ismember(ST.ARBITRARY, gen.SignalTypes)
-                break;
-            else
-                clear gen;
-            end
+            break;
         else
             clear scp;
         end
@@ -115,16 +114,15 @@ if exist('scp', 'var') && exist('gen', 'var')
     clear triggerInput;
 
     %% Generator settings:
-    gen.SignalType      = ST.ARBITRARY;         % Set signal type
-    gen.FrequencyMode   = FM.SAMPLEFREQUENCY;   % Set frequency mode (SAMPLEFREQUENCY or SIGNALFREQUENCY)
-    gen.Frequency       = fs;                   % Set sample rate (Hz)
+    gen.SignalType      = ST.SINE;              % Set signal type
+    gen.FrequencyMode   = FM.SIGNALFREQUENCY;   % Set frequency mode (SAMPLEFREQUENCY or SIGNALFREQUENCY)
+    gen.Frequency       = f;                   % Set sample rate (Hz)
     gen.Amplitude       = amp;                  % Set amplitude (V) (Max 12 V)
     gen.Offset          = 0;                    % Set offset (V) (Max +-12 V)
     % Burst mode
     gen.Mode            = GM.BURST_COUNT;       % Set mode
     gen.BurstCount      = pulses;               % Set burst count / pulses / periods
-    % Load the signal into the generator:
-    gen.setData(signal_gen);
+
     gen.OutputOn = true; % Enable output
 
     %% Information
