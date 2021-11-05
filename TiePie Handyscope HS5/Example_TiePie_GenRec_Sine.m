@@ -4,18 +4,15 @@ clc, close all;
 %% Parameters
 
 % Signal parameters
-fs = 2e6;   % Sample rate (Hz)
-f1 = 5e3;  % Hz
-f2 = 500e3;  % Hz
-T  = 0.2;  % s
-phase0 = true;
+fs = 1e6;  % Sample rate (Hz)
+f = 80e3;  % Hz
 % Amplitude
 Amp = 8; % Volts pp
 % Repetitions
-Pulses = 1;
+Pulses = 50;
 
 % Acquisition parameters
-RecordLength    = ceil((T*Pulses+20e-3)*fs); % Samples
+RecordLength    = ceil((1/f*Pulses+0.1e-3)*fs); % Samples
 VRange          = [Amp,0.1*Amp]; % Volts
 ProbeGain       = [1,3];
 Channels        = [1,2];
@@ -26,12 +23,8 @@ addpath('TiePieLib')
 import LibTiePie.*
 LIB = get_TiePie_Library();
 
-%% Signal generation
-import Others.*
-[data,~] = Sync_SweptSine(f1,f2,fs,T,phase0);
-
 %% Generation and reception
-[signal,t,real_fs] = TiePie_GENandREC_Arbitrary(LIB,data,fs,Channels,Amp,Pulses,RecordLength,VRange,ProbeGain);
+[signal,t,real_fs] = TiePie_GENandREC_Sine(LIB,f,fs,Channels,Amp,Pulses,RecordLength,VRange,ProbeGain);
 
 % Data
 dataCH1 = signal(:,1);
@@ -50,8 +43,3 @@ ylim([-VRange(2),VRange(2)])
 legend('Channel 1','Channel 2')
 xlabel('Time [s]');
 ylabel('Amplitude channel 2 [V]');
-
-%% Deconv
-Sync_SweptSine_Deconv(dataCH1,f1,f2,fs,T,phase0,3,1);
-
-Sync_SweptSine_Deconv(dataCH2,f1,f2,fs,T,phase0,3,1);

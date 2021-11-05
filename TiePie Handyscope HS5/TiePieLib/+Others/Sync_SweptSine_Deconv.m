@@ -1,5 +1,6 @@
 function [FR,f,IR,t,HHFR,fHH,HHIR,tHH] = Sync_SweptSine_Deconv(signal_rec,f1,f2,fs,T,phase0,N,show)
 %
+% [FR,f,IR,t,HHFR,fHH,HHIR,tHH] = Sync_SweptSine_Deconv(signal_rec,f1,f2,fs,T,phase0,N,show)
 %
 %   [1] Antonin Novak, Laurent Simon, Pierrick Lotton. Synchronized
 %       Swept-Sine: Theory, Application, and Implementation. Journal of the
@@ -41,7 +42,7 @@ arguments
     N           (1,1) {mustBeScalarOrEmpty,mustBeInteger,mustBePositive} = 3
     show        {mustBeScalarOrEmpty,mustBeMember(show,[0,1])} = false
 end
-close all
+
 % Rate frequency increase
 if phase0 == true
     L = (1/f1)*round((f1/log(f2/f1))*T); % Initial phase at 0
@@ -88,7 +89,7 @@ dt_ = round(dt);
 dt_rem = dt - dt_;
 
 % circular periodisation of IR
-len_IR = 2^14;
+len_IR = 2^15;%length(IR);
 pre_IR = round(len_IR / 2);
 h_pos = [IR; IR(1:len_IR)];
 
@@ -100,8 +101,14 @@ HHIR = zeros(len_IR,N);
 
 st0 = length(h_pos);
 for n = 1:N
+    
     % start position of n-th IR
     st = length(IR) - dt_(n) - pre_IR;
+    if st<0
+        N = n;
+        break;
+    end
+
     % end position of n-th IR
     ed = min(st + len_IR, st0);
 
