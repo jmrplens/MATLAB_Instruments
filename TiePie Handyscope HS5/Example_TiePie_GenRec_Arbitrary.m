@@ -4,11 +4,11 @@ clc, close all;
 %% Parameters
 
 % Signal parameters
-fs = 2e6;   % Sample rate (Hz)
-f1 = 5e3;  % Hz
-f2 = 500e3;  % Hz
-T  = 0.2;  % s
-phase0 = true;
+fs = 1e6;   % Sample rate (Hz)
+f1 = 30e3;  % Hz
+f2 = 50e3;  % Hz
+T  = 0.1;  % s
+phase0 = false;
 % Amplitude
 Amp = 8; % Volts pp
 % Repetitions

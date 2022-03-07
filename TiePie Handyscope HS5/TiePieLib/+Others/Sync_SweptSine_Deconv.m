@@ -89,7 +89,7 @@ dt_ = round(dt);
 dt_rem = dt - dt_;
 
 % circular periodisation of IR
-len_IR = 2^15;%length(IR);
+len_IR = round(length(IR)/2);
 pre_IR = round(len_IR / 2);
 h_pos = [IR; IR(1:len_IR)];
 
